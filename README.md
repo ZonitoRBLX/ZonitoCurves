@@ -1,17 +1,7 @@
 # ZonitoCurves
 A module made to make Bezier Curves easier to manage in Roblox LuaU
 
-
-
-
-__ __     _____  
- //  \|\ |||/  \ 
-/_\__/| \|||\__/ 
-                 
-
-
-made this
-hi :)
+Made by zonit0 on discord
 
 Ok so heres a quick explanation of how to use this, plus some examples
 
