@@ -1,5 +1,6 @@
 # ZonitoCurves
 A module made to make Bezier Curves easier to manage in Roblox LuaU
+https://www.roblox.com/library/14393828608/ZonitoCurves
 
 Made by zonit0 on discord
 
