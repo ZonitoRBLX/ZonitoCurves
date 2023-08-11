@@ -18,7 +18,7 @@ CubicCurve2() will move the part with a 100% chance for the part to reach the en
 	Bullet = The part you're moving across the curve
 	StartPosition = The Vector3 position of where the Bullet should start
 	EndPosition = The Vector3 position of where the Bullet should end
-	Rotation = The angle that the curve should base off of... eg: Vector3.new(10,90,0)
+	Rotation = The angle that the curve should base off of... eg: 90
 	Velocity = The base speed of the Bullet, integer only pls :)
 	Lifetime = How long the Bullet has to finish the curve; if it doesn't finish the curve in this time... it will end the function early
 	
