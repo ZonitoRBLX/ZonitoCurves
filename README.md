@@ -4,14 +4,11 @@ A module made to make Bezier Curves easier to manage in Roblox LuaU
 
 
 
- #######                              
-      #   ####  #    # # #####  ####  
-     #   #    # ##   # #   #   #    # 
-    #    #    # # #  # #   #   #    # 
-   #     #    # #  # # #   #   #    # 
-  #      #    # #   ## #   #   #    # 
- #######  ####  #    # #   #    ####  
-                                      
+__ __     _____  
+ //  \|\ |||/  \ 
+/_\__/| \|||\__/ 
+                 
+
 
 made this
 hi :)
