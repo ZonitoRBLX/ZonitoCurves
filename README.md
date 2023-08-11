@@ -20,7 +20,7 @@ CubicCurve2() will move the part with a 100% chance for the part to reach the en
 	Bullet = The part you're moving across the curve
 	StartPosition = The Vector3 position of where the Bullet should start
 	EndPosition = The Vector3 position of where the Bullet should end
-	Rotation = The angle that the curve should base off of... eg: 90
+	Rotation = The angle that the curve should base off of... eg: Vector3.new(10,90,0)
 	Velocity = The base speed of the Bullet, integer only pls :)
 	Lifetime = How long the Bullet has to finish the curve; if it doesn't finish the curve in this time... it will end the function early
 	
@@ -48,6 +48,19 @@ CubicCurve2() will move the part with a 100% chance for the part to reach the en
 	2# The script doesn't include a hitbox. You have to do that yourself, the script returns 'Curve finished' once the lifetime or curve is up. Use that to your advantage.	
 	
 	
+### *QuadraticCurve2* ###
+
+	QuadraticCurve2(Bullet, StartPosition, EndPosition, Speed, XCurve, YCurve, ZCurve)
+	
+	Bullet = The part you're moving across the curve
+	StartPosition = The Vector3 position of where the Bullet should start
+	EndPosition = The Vector3 position of where the Bullet should end
+	Speed = The base speed of the Bullet, Minimum: 0.01 Maximum 0.1
+	XCurve = The X value of the Vector3 that the curve will use
+	YCurve = The Y value of the Vector3 that the curve will use
+	ZCurve = The Z value of the Vector3 that the curve will use
+	
+	
 ### EXAMPLES ###
 
 	CubicCurve1(
@@ -69,3 +82,13 @@ CubicCurve2() will move the part with a 100% chance for the part to reach the en
 	0
 	)
 
+	QuadraticCurve2(
+	workspace.Part,
+	game.Players.LocalPlayer.Character.HumanoidRootPart.Position,
+	game.Players.LocalPlayer:GetMouse().Hit.Position,
+	0.03,
+	0,
+	90,
+	0
+	)
+	
