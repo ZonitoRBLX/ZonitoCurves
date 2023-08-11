@@ -46,7 +46,7 @@ CubicCurve2() will move the part with a 100% chance for the part to reach the en
 	
 	1# You **DO** have to set the Bullets parent under workspace beforehand. The script does not do it automatically
 	2# The script doesn't include a hitbox. You have to do that yourself, the script returns 'Curve finished' once the lifetime or curve is up. Use that to your advantage.	
-	
+	3# In order for the curve to act cubic, you need to give the XYZ Curve values "math.random()"
 	
 ### *QuadraticCurve2* ###
 
@@ -59,7 +59,11 @@ CubicCurve2() will move the part with a 100% chance for the part to reach the en
 	XCurve = The X value of the Vector3 that the curve will use
 	YCurve = The Y value of the Vector3 that the curve will use
 	ZCurve = The Z value of the Vector3 that the curve will use
+ 
+	Notes:
 	
+	1# You **DO** have to set the Bullets parent under workspace beforehand. The script does not do it automatically
+	2# The script doesn't include a hitbox. You have to do that yourself, the script returns 'Curve finished' once the lifetime or curve is up. Use that to your advantage.
 	
 ### EXAMPLES ###
 
