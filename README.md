@@ -5,6 +5,24 @@ https://www.roblox.com/library/14393828608/ZonitoCurves
 
 Made by zonit0 on discord
 
+
+  _____           _ _        
+ |__  /___  _ __ (_) |_ ___  
+   / // _ \| '_ \| | __/ _ \ 
+  / /| (_) | | | | | || (_) |
+ /____\___/|_| |_|_|\__\___/ 
+                             
+
+
+Most recent update
+12/08/2023 
+15:30 UTC+1
+           
+*Added hitboxes*
+                         
+made this
+hi :)
+
 Ok so heres a quick explanation of how to use this, plus some examples
 
 This module generates a bezier curve using math, then moves a part across the curve.
@@ -31,7 +49,7 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 	Notes:
 	
 	1# You **DO** have to set the Bullets parent under workspace beforehand. The script does not do it automatically
-	2# The script **DOESN'T** include a Hitbox right now, however, HitFunction() includes the Projectile. Use that to create your own hitbox system.
+	2# The script **DOES** include a hitbox. 'HitFunction' will be given everything that was hit, use that to your advantage
 	
 	
 ### *CubicCurve2* ###
@@ -50,7 +68,7 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 	Notes:
 	
 	1# You **DO** have to set the Bullets parent under workspace beforehand. The script does not do it automatically
-	2# The script **DOESN'T** include a Hitbox right now, however, HitFunction() includes the Projectile. Use that to create your own hitbox system.
+	2# The script **DOES** include a hitbox. 'HitFunction' will be given everything that was hit, use that to your advantage
 	
 	
 ### *QuadraticCurve2* ###
@@ -65,14 +83,27 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 	HitFunction = The function that will run after the curve is finished, or hits something
 	
 	1# You **DO** have to set the Bullets parent under workspace beforehand. The script does not do it automatically
-	2# The script **DOESN'T** include a Hitbox right now, however, HitFunction() includes the Projectile. Use that to create your own hitbox system.
+	2# The script **DOES** include a hitbox. 'HitFunction' will be given everything that was hit, use that to your advantage
+	
+
+### *CreateHitbox* ###
+
+	CreateHitbox(HitboxPart, IgnoreParams, HitFunction, Cooldown)
+	
+	HitboxPart = The part that the hitbox will form on
+	IgnoreParams = A table of things you want to hitbox to ignore, such as your own character
+	HitFunction = The function that will fire once the hitbox hits a Character, is returned with the Hit Humanoid
+	Cooldown = How long the script waits before allowing the hit character to be hit by a hitbox again
+	
+	1# This hitbox will only look for Characters with Humanoids: It will only be useful in Combat or VFX
+	
 	
 ### EXAMPLES ###
 
-	local function Hitfunction(Projectile) -- Projectile == the part that was travelling on the curve. The module returns it automatically.
+	local function Hitfunction()
 
-		print("Projectile curve finished")
-		print(Projectile)
+		print("Function fired!")
+
 	end
 		
 	CubicCurve1(
@@ -107,3 +138,11 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 	Vector3.new(0,90,0),
 	Hitfunction
 	)
+	
+	CreateHitbox(
+	workspace.Part,
+	{game.Players.LocalPlayer.Character,workspace.Ignore},
+	Hitfunction,
+	5
+	)
+	
