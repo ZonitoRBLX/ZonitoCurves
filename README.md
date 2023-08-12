@@ -61,9 +61,7 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 	StartPosition = The Vector3 position of where the Bullet should start
 	EndPosition = The Vector3 position of where the Bullet should end
 	Speed = The base speed of the Bullet, Minimum: 0.01 Maximum 0.1
-	XCurve = The X value of the Vector3 that the curve will use
-	YCurve = The Y value of the Vector3 that the curve will use
-	ZCurve = The Z value of the Vector3 that the curve will use
+	Key = The Vector3 Keypoint
 	HitFunction = The function that will run after the curve is finished, or hits something
 	
 	1# You **DO** have to set the Bullets parent under workspace beforehand. The script does not do it automatically
