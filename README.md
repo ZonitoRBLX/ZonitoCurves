@@ -31,7 +31,7 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 	Notes:
 	
 	1# You **DO** have to set the Bullets parent under workspace beforehand. The script does not do it automatically
-	2# The script **DOES** include a hitbox. 'HitFunction' will be given everything that was hit, use that to your advantage
+	2# The script **DOESN'T** include a Hitbox right now, however, HitFunction() includes the Projectile. Use that to create your own hitbox system.
 	
 	
 ### *CubicCurve2* ###
@@ -50,7 +50,7 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 	Notes:
 	
 	1# You **DO** have to set the Bullets parent under workspace beforehand. The script does not do it automatically
-	2# The script **DOES** include a hitbox. 'HitFunction' will be given everything that was hit, use that to your advantage
+	2# The script **DOESN'T** include a Hitbox right now, however, HitFunction() includes the Projectile. Use that to create your own hitbox system.
 	
 	
 ### *QuadraticCurve2* ###
@@ -65,14 +65,14 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 	HitFunction = The function that will run after the curve is finished, or hits something
 	
 	1# You **DO** have to set the Bullets parent under workspace beforehand. The script does not do it automatically
-	2# The script **DOES** include a hitbox. 'HitFunction' will be given everything that was hit, use that to your advantage
+	2# The script **DOESN'T** include a Hitbox right now, however, HitFunction() includes the Projectile. Use that to create your own hitbox system.
 	
 ### EXAMPLES ###
 
-	local function Hitfunction()
+	local function Hitfunction(Projectile) -- Projectile == the part that was travelling on the curve. The module returns it automatically.
 
 		print("Projectile curve finished")
-
+		print(Projectile)
 	end
 		
 	CubicCurve1(
