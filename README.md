@@ -6,14 +6,6 @@ https://www.roblox.com/library/14393828608/ZonitoCurves
 Made by zonit0 on discord
 
 
-  _____           _ _        
- |__  /___  _ __ (_) |_ ___  
-   / // _ \| '_ \| | __/ _ \ 
-  / /| (_) | | | | | || (_) |
- /____\___/|_| |_|_|\__\___/ 
-                             
-
-
 Most recent update
 12/08/2023 
 15:30 UTC+1
