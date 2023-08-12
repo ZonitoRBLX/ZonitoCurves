@@ -120,9 +120,6 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 	Hitfunction
 	)
 
-
-
-	
 	QuadraticCurve2(
 	workspace.Part,
 	game.Players.LocalPlayer.Character.HumanoidRootPart.Position,
