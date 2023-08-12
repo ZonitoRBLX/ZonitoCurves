@@ -4,13 +4,20 @@ local ZC = {}
 --[[
 
 
-¦¦¦¦¦¦¦+ ¦¦¦¦¦¦+ ¦¦¦+   ¦¦+¦¦+¦¦¦¦¦¦¦¦+ ¦¦¦¦¦¦+ 
-+--¦¦¦++¦¦+---¦¦+¦¦¦¦+  ¦¦¦¦¦¦+--¦¦+--+¦¦+---¦¦+
-  ¦¦¦++ ¦¦¦   ¦¦¦¦¦+¦¦+ ¦¦¦¦¦¦   ¦¦¦   ¦¦¦   ¦¦¦
- ¦¦¦++  ¦¦¦   ¦¦¦¦¦¦+¦¦+¦¦¦¦¦¦   ¦¦¦   ¦¦¦   ¦¦¦
-¦¦¦¦¦¦¦++¦¦¦¦¦¦++¦¦¦ +¦¦¦¦¦¦¦¦   ¦¦¦   +¦¦¦¦¦¦++
-+------+ +-----+ +-+  +---++-+   +-+    +-----+ 
-                                                
+  _____           _ _        
+ |__  /___  _ __ (_) |_ ___  
+   / // _ \| '_ \| | __/ _ \ 
+  / /| (_) | | | | | || (_) |
+ /____\___/|_| |_|_|\__\___/ 
+                             
+
+
+Most recent update
+12/08/2023 
+15:30 UTC+1
+           
+*Added hitboxes*
+                         
 made this
 hi :)
 
@@ -76,11 +83,24 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 	1# You **DO** have to set the Bullets parent under workspace beforehand. The script does not do it automatically
 	2# The script **DOES** include a hitbox. 'HitFunction' will be given everything that was hit, use that to your advantage
 	
+
+### *CreateHitbox* ###
+
+	CreateHitbox(HitboxPart, IgnoreParams, HitFunction, Cooldown)
+	
+	HitboxPart = The part that the hitbox will form on
+	IgnoreParams = A table of things you want to hitbox to ignore, such as your own character
+	HitFunction = The function that will fire once the hitbox hits a Character, is returned with the Hit Humanoid
+	Cooldown = How long the script waits before allowing the hit character to be hit by a hitbox again
+	
+	1# This hitbox will only look for Characters with Humanoids: It will only be useful in Combat or VFX
+	
+	
 ### EXAMPLES ###
 
 	local function Hitfunction()
 
-		print("Projectile curve finished")
+		print("Function fired!")
 
 	end
 		
@@ -117,14 +137,15 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 	Hitfunction
 	)
 	
+	CreateHitbox(
+	workspace.Part,
+	{game.Players.LocalPlayer.Character,workspace.Ignore},
+	Hitfunction,
+	5
+	)
+	
 ]]
 
-
-
-
-
-local HitboxVisualiser = true -- This will show a part where hitboxes appear. Turn this off when you're not testing.
-local DefaultDamage = 10 -- The amount of damage the hitbox will do if not specified.
 
 local BZ_NUM_SAMPLE_POINTS = 1000 -- Used for math, dont change unless ur high iq
 local BZ_ARC_RADIUS = 20 -- self explanatory, dont change unless ur high iq
@@ -137,6 +158,7 @@ local BULLET_MAX_LIFETIME = 60.0 -- seconds
 --- Services
 
 local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
 
 --- Functions
 
@@ -207,65 +229,13 @@ function cubicBzLength(p0, p1, p2, p3) -- This function takes a bezier curve and
 	
 end
 
-
---[[function HitBox(InPart, Position, Damage, FilterTable)
-	
-	if HitboxVisualiser then
-	
-		local Part = Instance.new("Part")
-		Part.Name = "HitBox"
-		Part.Material = "Neon"
-		Part.BrickColor = BrickColor.new("Really red")
-		Part.Size = InPart.Size
-		Part.Transparency = 0.9
-		Part.CanCollide = false
-		Part.Anchored = true
-		Part.Position = Position
-		Part.Parent = workspace
-		
-		task.delay(.25,function()
-
-			Part:Destroy()
-
-		end)
-		
-	end
-		
-
-
-	local Params = OverlapParams.new()
-	Params.FilterType = Enum.RaycastFilterType.Exclude
-	Params.FilterDescendantsInstances = (FilterTable or {})
-
-	local FoundPart = workspace:GetPartsInPart(InPart,Params)
-
-	for i,v in pairs(FoundPart) do
-		
-		if v.Parent:FindFirstChild("Humanoid") and v.Parent:FindFirstChild("Debounce") == nil then
-			
-			local Debounce = Instance.new("ObjectValue")
-			Debounce.Name = "Debounce"
-			Debounce.Parent = v.Parent
-
-			task.delay(.25,function()
-				
-				Debounce:Destroy()
-				
-			end)
-
-			local Hum = v.Parent:FindFirstChild("Humanoid")
-
-			Hum:TakeDamage((Damage or DefaultDamage))
-
-		end
-		
-	end
-end]] -- Not using this yet lol
-
-
 --- The actual module functions
 
 function ZC.CubicCurve1(Bullet, StartPosition, EndPosition, Rotation, Velocity, Lifetime, HitFunction) -- Calculates bullet speed for u :)
+	
+	local RayParams = RaycastParams.new()
+	RayParams.FilterDescendantsInstances = {}
+	RayParams.FilterType = Enum.RaycastFilterType.Exclude
 	
 	coroutine.wrap(function()
 		
@@ -302,7 +272,6 @@ function ZC.CubicCurve1(Bullet, StartPosition, EndPosition, Rotation, Velocity, 
 			local updatedPos = cubicBezier(alpha, p0, p1, p2, p3) -- Alpha = %
 			bullet.Position = updatedPos
 			
-			
 			if  totalTime > (Lifetime or BULLET_MAX_LIFETIME) then
 				if Db == false then
 				Db = true
@@ -333,6 +302,9 @@ function ZC.CubicCurve1(Bullet, StartPosition, EndPosition, Rotation, Velocity, 
 	
 end
 
+
+
+
 function ZC.CubicCurve2(Bullet, StartPosition, EndPosition, Speed, Key1, Key2, Key3, HitFunction)
 	
 	coroutine.wrap(function() -- "EWW WHY R U USING COROUTINES???" shut up :(
@@ -354,6 +326,7 @@ function ZC.CubicCurve2(Bullet, StartPosition, EndPosition, Speed, Key1, Key2, K
 
 		for i = 0,1,Speed do -- Keep speed under 0.05 pls
 			
+			
 			local One=lerp(StartPosition,KeyPoint1,i) -- ok i literally cba to explain whats going on here so um
 			local Two=lerp(KeyPoint1,EndPosition,i) -- math is happening ok
 			local Three=lerp(KeyPoint2,EndPosition,i)
@@ -366,9 +339,8 @@ function ZC.CubicCurve2(Bullet, StartPosition, EndPosition, Speed, Key1, Key2, K
 			local One_Three=lerp(One_Two,Two_Two,i)
 			local Two_Three=lerp(Two_Two,Three_Two,i)
 			local Path=lerp(One_Three,Two_Three,i)
-			
+		
 			Projectile.Position = Path -- yes and it moves projectile to that position. yes.
-			
 			task.wait() -- do NNOT REMOVE THE GOSH DARN WAIT PLS
 			
 		end
@@ -401,7 +373,7 @@ function ZC.QuadraticCurve2(Bullet, StartPosition, EndPosition, Speed, Key, HitF
 		for i = 0,1,Speed do -- Keep speed under 0.05 pls
 
 			local Path = QuadraticBezier(i,StartPosition,KeyPoint,EndPosition)
-
+			
 			Projectile.Position = Path -- yes and it moves projectile to that position. yes.
 
 			task.wait() -- do NNOT REMOVE THE GOSH DARN WAIT PLS
@@ -416,6 +388,46 @@ function ZC.QuadraticCurve2(Bullet, StartPosition, EndPosition, Speed, Key, HitF
 	
 	
 end
+	
+function ZC.CreateHitbox(HitboxPart, IgnoreParams, HitFunction, Cooldown)
+	
+	local OP = OverlapParams.new()
+	OP.FilterDescendantsInstances = IgnoreParams
+	OP.FilterType = Enum.RaycastFilterType.Exclude
+	
+	local Hitbox = workspace:GetPartsInPart(HitboxPart,OP)
+	
+	for _,Hit in pairs(Hitbox) do
+		
+		local Hit_Character = Hit.Parent
+		local Hit_Humanoid = Hit_Character:FindFirstChildOfClass("Humanoid")
+		
+		if Hit_Humanoid then
+			
+			if not Hit_Humanoid:FindFirstChild("ZonitoDebounce") then
+				
+				local Debounce = Instance.new("BoolValue")
+				Debounce.Name = "ZonitoDebounce"
+				Debounce.Parent = Hit_Humanoid
+				
+				task.delay(Cooldown,function()
+					
+					Debounce:Destroy()
+					
+				end)
+				
+				HitFunction(Hit_Humanoid) 
+				
+			end
+			
+		end
+		
+	end
+	
+end
+	
+	
+	
 	
 	
 --- End
