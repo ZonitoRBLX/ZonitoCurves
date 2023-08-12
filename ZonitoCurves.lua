@@ -70,9 +70,7 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 	StartPosition = The Vector3 position of where the Bullet should start
 	EndPosition = The Vector3 position of where the Bullet should end
 	Speed = The base speed of the Bullet, Minimum: 0.01 Maximum 0.1
-	XCurve = The X value of the Vector3 that the curve will use
-	YCurve = The Y value of the Vector3 that the curve will use
-	ZCurve = The Z value of the Vector3 that the curve will use
+	Key = The Vector3 Keypoint
 	HitFunction = The function that will run after the curve is finished, or hits something
 	
 	1# You **DO** have to set the Bullets parent under workspace beforehand. The script does not do it automatically
@@ -323,7 +321,7 @@ function ZC.CubicCurve1(Bullet, StartPosition, EndPosition, Rotation, Velocity, 
 				
 				connection:Disconnect() -- Stop
 				
-				HitFunction()
+				HitFunction(bullet)
 				
 				return "Curve finished" -- In your script you can check for this being returned, then do hitboxes or whatever
 				
@@ -340,6 +338,7 @@ function ZC.CubicCurve2(Bullet, StartPosition, EndPosition, Speed, Key1, Key2, K
 	coroutine.wrap(function() -- "EWW WHY R U USING COROUTINES???" shut up :(
 		
 		local Projectile = Bullet
+		Projectile.Name = Bullet.Name
 
 		Projectile.Position = StartPosition
 
@@ -374,7 +373,7 @@ function ZC.CubicCurve2(Bullet, StartPosition, EndPosition, Speed, Key1, Key2, K
 			
 		end
 		
-		HitFunction()
+		HitFunction(Projectile)
 		
 		return "Curve finished" -- In your script you can check for this being returned, then do hitboxes or whatever
 		
@@ -409,7 +408,7 @@ function ZC.QuadraticCurve2(Bullet, StartPosition, EndPosition, Speed, Key, HitF
 
 		end
 		
-		HitFunction()
+		HitFunction(Projectile)
 		
 		return "Curve finished" -- In your script you can check for this being returned, then do hitboxes or whatever
 
