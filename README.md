@@ -12,12 +12,11 @@ Most recent update
 
 
 **Changelog**
-> Added LookTo function
-> \nAdded HitFunction and MoveFunction
-> Fixed a bug where you'd be forced to use HitFunction
-> Improved flexibility
-> Improved readability
-> Updated example place
++ Added HitFunction and MoveFunction
++ Fixed a bug where you'd be forced to use HitFunction
++ Improved flexibility
++ Improved readability
++ Updated example place
 
 
 Ok so heres a quick explanation of how to use this, plus some examples
