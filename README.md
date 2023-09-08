@@ -7,14 +7,18 @@ Made by zonit0 on discord
 
 
 Most recent update
-12/08/2023 
-15:30 UTC+1
+08/09/2023
+19:43 UTC+1
 
 
-*Added hitboxes*
+**Changelog**
+> Added LookTo function
+> Added HitFunction and MoveFunction
+> Fixed a bug where you'd be forced to use HitFunction
+> Improved flexibility
+> Improved readability
+> Updated example place
 
-
-hi :3
 
 Ok so heres a quick explanation of how to use this, plus some examples
 
@@ -31,13 +35,15 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 
 	CubicCurve1(Bullet, StartPosition, EndPosition, Rotation, Velocity, Lifetime, HitFunction)
 	
-	Bullet = The part you're moving across the curve
-	StartPosition = The Vector3 position of where the Bullet should start
-	EndPosition = The Vector3 position of where the Bullet should end
-	Rotation = The angle that the curve should base off of... eg: Vector3.new(10,90,0)
-	Velocity = The base speed of the Bullet, integer only pls :)
-	Lifetime = How long the Bullet has to finish the curve; if it doesn't finish the curve in this time... it will end the function early
-	HitFunction = The function that will run after the curve is finished, or hits something
+	Bullet = The part you're moving across the curve (Instance)
+	StartPosition = The Vector3 position of where the Bullet should start (Position)
+	EndPosition = The Vector3 position of where the Bullet should end (Position)
+	Rotation = The angle that the curve should base off of (Vector3)
+	Velocity = The base speed of the Bullet (Number)
+	Lifetime = How long the Bullet has to finish the curve; if it doesn't finish the curve in this time... it will end the function early (Number)
+ 	LookTo = If the bullet will point towards / look at the next position on the curve. (Boolean)
+	HitFunction = The function that will run after the curve is finished, or hits something (Function)
+ 	MoveFunction = The function that will run every time the Bullet moves (Function)
 	
 	Notes:
 	
@@ -49,14 +55,16 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 
 	CubicCurve2(Bullet, StartPosition, EndPosition, Speed, Key1, Key2, Key3, HitFunction)
 	
-	Bullet = The part you're moving across the curve
-	StartPosition = The Vector3 position of where the Bullet should start
-	EndPosition = The Vector3 position of where the Bullet should end
-	Speed = The base speed of the Bullet, Minimum: 0.01 Maximum 0.1
-	Key1 = The first Vector3 KeyPoint
-	Key2 = The second Vector3 KeyPoint
-	Key3 = The third Vector3 KeyPoint
-	HitFunction = The function that will run after the curve is finished, or hits something
+	Bullet = The part you're moving across the curve (Instance)
+	StartPosition = The Vector3 position of where the Bullet should start (Position)
+	EndPosition = The Vector3 position of where the Bullet should end (Position)
+	Speed = The base speed of the Bullet, Minimum: 0.01 Maximum 0.1 (Number)
+	Key1 = The first Vector3 KeyPoint (Vector3)
+	Key2 = The second Vector3 KeyPoint (Vector3)
+	Key3 = The third Vector3 KeyPoint (Vector3)
+ 	LookTo = If the bullet will point towards / look at the next position on the curve. (Boolean)
+	HitFunction = The function that will run after the curve is finished, or hits something (Function)
+	MoveFunction = The function that will run every time the Bullet moves (Function)
 		
 	Notes:
 	
@@ -68,12 +76,14 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 
 	QuadraticCurve2(Bullet, StartPosition, EndPosition, Speed, Key, HitFunction)
 	
-	Bullet = The part you're moving across the curve
-	StartPosition = The Vector3 position of where the Bullet should start
-	EndPosition = The Vector3 position of where the Bullet should end
-	Speed = The base speed of the Bullet, Minimum: 0.01 Maximum 0.1
-	Key = The Vector3 Keypoint
-	HitFunction = The function that will run after the curve is finished, or hits something
+	Bullet = The part you're moving across the curve (Instance)
+	StartPosition = The Vector3 position of where the Bullet should start (Position)
+	EndPosition = The Vector3 position of where the Bullet should end (Position)
+	Speed = The base speed of the Bullet, Minimum: 0.01 Maximum 0.1 (Number)
+	Key = The Vector3 Keypoint (Vector3)
+ 	LookTo = If the bullet will point towards / look at the next position on the curve. (Boolean)
+	HitFunction = The function that will run after the curve is finished, or hits something (Function)
+ 	MoveFunction = The function that will run every time the Bullet moves (Function)
 	
 	1# You **DO** have to set the Bullets parent under workspace beforehand. The script does not do it automatically
 	2# The script **DOES** include a hitbox. 'HitFunction' will be given everything that was hit, use that to your advantage
@@ -93,12 +103,18 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 	
 ### EXAMPLES ###
 
-	local function Hitfunction()
+	local function Hitfunction(Projectile)
 
-		print("Function fired!")
+		print(`{Projectile} Has finished curving!`)
 
 	end
-		
+
+	local function MoveFunction(Projectile)
+
+		print(`{Projectile} Has moved!`)
+
+  	end
+   
 	CubicCurve1(
 	workspace.Part,
 	game.Players.LocalPlayer.Character.HumanoidRootPart.Position,
@@ -106,8 +122,10 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 	Vector3.new(0,90,0),
 	20.0,
 	10.0,
-	Hitfunction
-	)
+ 	true,
+	Hitfunction,
+ 	MoveFunction
+ )
 
 	CubicCurve2(
 	workspace.Part,
@@ -117,7 +135,9 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 	Vector3.new(0,90,0),
 	Vector3.new(30,90,0),
 	Vector3.new(10,90,0),
-	Hitfunction
+ 	true,
+	Hitfunction,
+ 	MoveFunction
 	)
 
 	QuadraticCurve2(
@@ -126,7 +146,9 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 	game.Players.LocalPlayer:GetMouse().Hit.Position,
 	0.03,
 	Vector3.new(0,90,0),
-	Hitfunction
+ 	true,
+	Hitfunction,
+ 	MoveFunction
 	)
 	
 	CreateHitbox(
