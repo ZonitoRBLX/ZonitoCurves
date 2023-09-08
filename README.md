@@ -13,7 +13,7 @@ Most recent update
 
 **Changelog**
 > Added LookTo function
-> Added HitFunction and MoveFunction
+> \nAdded HitFunction and MoveFunction
 > Fixed a bug where you'd be forced to use HitFunction
 > Improved flexibility
 > Improved readability
