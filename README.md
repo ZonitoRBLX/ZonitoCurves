@@ -5,6 +5,8 @@ A module made to make Bezier Curves easier to manage in Roblox LuaU
 
 [My roblox profile](https://www.roblox.com/users/3204456279/profile)
 
+[ZonitoVisuals plugin](https://www.roblox.com/library/14693803086/ZonitoVisuals-v0-1) -- A plugin I made to visualise these curves and generate KeyPoints for this module.
+
 Made by zonit0 on discord
 
 
