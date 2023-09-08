@@ -122,7 +122,7 @@ QuadraticCurve2() will move the part across a Quadratic bezier with a 100% chanc
 	workspace.Part,
 	game.Players.LocalPlayer.Character.HumanoidRootPart.Position,
 	game.Players.LocalPlayer:GetMouse().Hit.Position,
-	Vector3.new(0,90,0),
+	90,
 	20.0,
 	10.0,
  	true,
